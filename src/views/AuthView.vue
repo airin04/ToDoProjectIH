@@ -1,6 +1,29 @@
 <template>
   <h1>This is the sign up/sign in view</h1>
-  <button @click="handleSignUp">Sign Up!</button>
+  <form @submit='handleSignUp'>
+    <h1>New here? Sign Up!</h1>
+    <label for='email'>
+      Email
+      <input type='email' id='email' name='email' v-model='email'>
+      </label><br>
+    <label for='password'>
+      Password
+      <input type='password' id='email' name='password' v-model='password' />
+      </label>
+    <input type='submit' />
+  </form>
+  <form @submit='handleSignIn'>
+    <h1>Already a user? Sign In</h1>
+    <label for='email'>
+      Email
+      <input type='email' id='email' name='email' v-model='email'>
+      </label><br>
+    <label for='password'>
+      Password
+      <input type='password' id='email' name='password' v-model='password' />
+      </label>
+    <input type='submit' />
+  </form>
 </template>
 
 <script>
@@ -12,14 +35,20 @@ export default {
   computed: {
     ...mapState(userStore, ['user']),
   },
+  data() {
+    return {
+      email: '',
+      password: '',
+    };
+  },
   methods: {
     ...mapActions(userStore, ['signUp']),
     handleSignUp() {
-      const sampleData = {
-        email: 'irene@example.com',
-        password: 'prueba1234',
-      };
-      this.signUp(sampleData.email, sampleData.password);
+      this.signUp(this.email, this.password);
+    },
+    ...mapActions(userStore, ['signIn']),
+    handleSignIn() {
+      this.signIn(this.email, this.password);
     },
   },
   watch: {
