@@ -29,9 +29,10 @@ export default defineStore('user', {
       if (error) throw error;
       if (user) this.user = user;
     },
-    // async signOut() {
-    //   const { error } = await supabase.auth.signOut()
-    // },
+    async signOut() {
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+    },
   },
   persist: {
     enabled: true,

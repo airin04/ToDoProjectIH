@@ -7,6 +7,7 @@
 <script>
 import { mapState, mapActions } from 'pinia';
 import taskStore from '@/store/task';
+import userStore from '@/store/user';
 
 export default {
   name: 'HomeView',
@@ -14,6 +15,10 @@ export default {
     ...mapState(taskStore, ['tasks']),
   },
   methods: {
+    ...mapActions(userStore, ['signOut']),
+    handleSignOut(error) {
+      this.signOut(error);
+    },
     ...mapActions(taskStore, ['fetchTasks']),
   },
   created() {
