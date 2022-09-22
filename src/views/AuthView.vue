@@ -1,9 +1,13 @@
 <template>
+  <div class='logo-container'>
+    <img src='@/assets/logo.png'
+    alt="minimalist logo">
+  </div>
   <div class='form-container'>
     <form @submit.prevent='handleSignUp' class='sign-up-form'>
-      <h1>New here? Sign Up!</h1>
+      <h2>register</h2>
       <label for='email'>
-        Email
+        email
         <input
           type='email'
           id='email'
@@ -12,7 +16,7 @@
         />
       </label>
       <label for='password'>
-        Password
+        password
         <input
           type='password'
           id='password'
@@ -21,7 +25,7 @@
         />
       </label>
       <label for='confirm-password'>
-        Confirm Password
+        confirm password
         <input
           type='password'
           id='password2'
@@ -32,28 +36,26 @@
       <input class='submit-button' type='submit' value='>'/>
     </form>
     <form @submit='handleSignIn' class="sign-in-form">
-      <h1>Already a user? Sign In</h1>
+      <h2>sign in</h2>
       <label for='email'>
-        Email
+        email
         <input
           type='email'
           id='email'
           name='email'
-          placeholder='Your email'
           v-model='email'
         />
       </label>
       <label for='password'>
-        Password
+        password
         <input
           type='password'
           id='email'
           name='password'
-          placeholder='Your password'
           v-model='password'
         />
         </label>
-      <input type='submit' />
+      <input class='submit-button' type='submit' value='>' />
     </form>
   </div>
 </template>
@@ -103,14 +105,26 @@ export default {
 
 <style>
 
+.logo-container {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 5%;
+  padding-right: 15%;
+}
+
+.logo-container > img {
+  height: 50px;
+}
+
 .form-container {
   display: flex;
   flex-direction: row;
-  align-content: space-around;
+  justify-content: flex-start;
+  align-items: flex-start;
   width: 80%;
   position: fixed;
   top: 30%;
-  left: 10%;
+  left: 5%;
 }
 
 .sign-up-form {
@@ -120,7 +134,16 @@ export default {
   justify-content: space-between;
   width: 50%;
   height: 250px;
-  border-right: solid black;
+  padding-right:20%;
+  border-right: solid #0A0A14;
+  border-right-width: thin;
+}
+
+.sign-up-form > label {
+  align-self: flex-end;
+}
+.sign-up-form > h2 {
+  align-self: flex-end;
 }
 
 .sign-in-form {
@@ -132,8 +155,17 @@ export default {
   height: 200px;
 }
 
+.sign-in-form > label {
+  align-self: flex-end;
+}
+.sign-in-form > h2 {
+  align-self: flex-end;
+}
+
 .submit-button {
-  background-color: #F5C2FE;
+  align-self: flex-end;
+  background-color: #FF265A;
+  color: #ffffff;
   border-radius: 50%;
   border:none;
   width: 30px;
