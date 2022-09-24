@@ -4,7 +4,7 @@
     alt="minimalist logo">
   </div>
   <div class='form-container'>
-    <form @submit.prevent='handleSignUp' class='sign-up-form'>
+    <form class='sign-up-form'>
       <h2>register</h2>
       <label for='email'>
         email
@@ -33,29 +33,29 @@
           v-model='password2'
         />
       </label>
-      <input class='submit-button' type='submit' value='>'/>
+      <button class='submit-button' @click.prevent='handleSignUp'>&lt;</button>
     </form>
-    <form @submit='handleSignIn' class="sign-in-form">
+    <form class="sign-in-form">
       <h2>sign in</h2>
-      <label for='email'>
+      <label for='userEmail'>
         email
         <input
           type='email'
-          id='email'
-          name='email'
-          v-model='email'
+          id='userEmail'
+          name='userEmail'
+          v-model='userEmail'
         />
       </label>
-      <label for='password'>
+      <label for='userPassword'>
         password
         <input
           type='password'
-          id='email'
-          name='password'
-          v-model='password'
+          id='userPassword'
+          name='userPassword'
+          v-model='userPassword'
         />
         </label>
-      <input class='submit-button' type='submit' value='>' />
+      <button class='submit-button' @click.prevent='handleSignIn'>&lt;</button>
     </form>
   </div>
 </template>
@@ -74,6 +74,8 @@ export default {
       email: '',
       password: '',
       password2: '',
+      userEmail: '',
+      userPassword: '',
       errorMessage: 'Error message',
     };
   },
@@ -89,8 +91,13 @@ export default {
       }
     },
     ...mapActions(userStore, ['signIn']),
-    handleSignIn() {
-      this.signIn(this.email, this.password);
+    async handleSignIn() {
+      try {
+        console.log('handle sign in');
+        await this.signIn(this.userEmail, this.userPassword);
+      } catch (error) {
+        this.errorMessage = error.message;
+      }
     },
   },
   watch: {
