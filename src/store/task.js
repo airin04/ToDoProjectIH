@@ -22,12 +22,11 @@ export default defineStore('tasks', {
       if (error) throw error;
       else { this.tasks.push(data[0]); }
     },
-    
     async modifyTask(title, id) {
       const { data, error } = await supabase
         .from('tasks')
         .update({ title })
-        .match({id});
+        .match({ id });
       if (error) throw error;
       else {
         const taskIndex = this.tasks.findIndex((task) => task.id === data[0].id);
@@ -36,11 +35,11 @@ export default defineStore('tasks', {
       }
     },
 
-    async modifyTaskState(is_complete, id) {
+    async modifyTaskState(isComplete, id) {
       const { data, error } = await supabase
         .from('tasks')
-        .update({ is_complete })
-        .match({id});
+        .update({ is_complete: isComplete })
+        .match({ id });
       if (error) throw error;
       else {
         const taskIndex = this.tasks.findIndex((task) => task.id === data[0].id);
@@ -48,7 +47,7 @@ export default defineStore('tasks', {
         taskToUpdate.is_complete = data[0].is_complete;
       }
     },
-    
+
     async deleteTask(id) {
       const { data, error } = await supabase
         .from('tasks')
