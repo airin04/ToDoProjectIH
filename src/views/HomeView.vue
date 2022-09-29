@@ -23,15 +23,17 @@
       <table>
         <thead>
           <tr>
-            <td>my tasks</td>
-            <td>edit</td>
-            <td>delete</td>
-            <td>complete</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
           </tr>
         </thead>
         <tbody v-for='task in tasks' :key='task.id'>
-          <tr>
-            <td>{{ task.title }}</td>
+          <tr class='my-tasks-list'>
+            <td :class='{ check: isCompleted, uncheck: !isCompleted }'>
+            {{ task.title }}
+            </td>
             <td>
               <button
                 @click.prevent='editTask(task.title, task.id)'
@@ -47,7 +49,7 @@
                 />
                 </label>
                 <button
-                  @click.prevent='finishTaskEdit'
+                  @click.prevent='finishTaskEdit(task.title, task.id)'
                   class='edit-button'>
                 </button>
               </form>
@@ -60,7 +62,8 @@
             </td>
             <td>
               <button
-                @click.prevent='completeTask(isComplete, id)'
+                @click.prevent='completeTask(task.is_complete, task.id);
+                (isCompleted = !isCompleted)'
                 class='check-button'>
               </button>
             </td>
@@ -84,7 +87,7 @@ export default {
       newTask: '',
       editedTask: '',
       editingTask: false,
-      taskCompleted: false,
+      isCompleted: false,
       taskId: null,
     };
   },
@@ -115,15 +118,15 @@ export default {
     async finishTaskEdit() {
       try {
         await this.modifyTask(this.editedTask, this.taskId);
+        console.log('this', this.modifyTask());
       } catch (error) {
         console.error(error);
       }
       this.editingTask = false;
     },
     async completeTask(isComplete, id) {
-      this.taskCompleted = true;
       try {
-        await this.modifyTaskState(isComplete, id);
+        await this.modifyTaskState(!isComplete, id);
       } catch (error) {
         console.error(error);
       }
@@ -165,7 +168,8 @@ export default {
 
 .home-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  gap: 10%
 }
 
 button {
@@ -200,11 +204,26 @@ button:hover {
 .input-bar-container {
   display: flex;
   align-items: center;
+  justify-content: right;
   gap: 10px;
 }
 
 .task-table-container {
   background-image: url('@/assets/grid.001.jpeg');
-  padding: 50px;
+  padding: 50px 150px 100px 150px;
+}
+
+.check {
+  text-decoration: line-through;
+}
+
+.uncheck {
+  text-decoration: none;
+}
+
+.my-tasks-list {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
 }
 </style>
