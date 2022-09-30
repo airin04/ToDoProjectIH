@@ -34,7 +34,6 @@ export default defineStore('tasks', {
         taskToUpdate.title = data[0].title;
       }
     },
-
     async modifyTaskState(isComplete, id) {
       const { data, error } = await supabase
         .from('tasks')
@@ -47,7 +46,6 @@ export default defineStore('tasks', {
         taskToUpdate.is_complete = data[0].is_complete;
       }
     },
-
     async deleteTask(id) {
       const { data, error } = await supabase
         .from('tasks')

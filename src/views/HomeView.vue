@@ -32,7 +32,7 @@
         <tbody v-for='task in tasks' :key='task.id'>
           <tr class='my-tasks-list'>
             <td :class='{ check: isCompleted, uncheck: !isCompleted }'>
-            {{ task.title }}
+              {{ task.title }}
             </td>
             <td>
               <button
@@ -41,12 +41,12 @@
               </button>
               <form v-if='editingTask'>
                 <label for='editedTask'>
-                <input
-                  type='text'
-                  id='editedtask'
-                  name='editedTask'
-                  v-model='editedTask'
-                />
+                  <input
+                    type='text'
+                    id='editedtask'
+                    name='editedTask'
+                    v-model='editedTask'
+                  />
                 </label>
                 <button
                   @click.prevent='finishTaskEdit(task.title, task.id)'
@@ -118,7 +118,6 @@ export default {
     async finishTaskEdit() {
       try {
         await this.modifyTask(this.editedTask, this.taskId);
-        console.log('this', this.modifyTask());
       } catch (error) {
         console.error(error);
       }
