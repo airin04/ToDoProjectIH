@@ -31,42 +31,46 @@
         </thead>
         <tbody v-for='task in tasks' :key='task.id'>
           <tr class='my-tasks-list'>
-            <td :class='{ check: isCompleted, uncheck: !isCompleted }'>
-              {{ task.title }}
-            </td>
-            <td>
-              <button
-                @click.prevent='editTask(task.title, task.id)'
-                class='edit-button'>
-              </button>
-              <form v-if='editingTask'>
-                <label for='editedTask'>
-                  <input
-                    type='text'
-                    id='editedtask'
-                    name='editedTask'
-                    v-model='editedTask'
-                  />
-                </label>
+            <div>
+              <td :class='{ check: isCompleted, uncheck: !isCompleted }'>
+                {{ task.title }}
+              </td>
+            </div>
+            <div>
+              <td>
                 <button
-                  @click.prevent='finishTaskEdit(task.title, task.id)'
+                  @click.prevent='editTask(task.title, task.id)'
                   class='edit-button'>
                 </button>
-              </form>
-            </td>
-            <td>
-              <button
-                @click.prevent='eliminateTask(task.id)'
-                class='delete-button'>
-              </button>
-            </td>
-            <td>
-              <button
-                @click.prevent='completeTask(task.is_complete, task.id);
-                (isCompleted = !isCompleted)'
-                class='check-button'>
-              </button>
-            </td>
+                <form v-if='editingTask'>
+                  <label for='editedTask'>
+                    <input
+                      type='text'
+                      id='editedtask'
+                      name='editedTask'
+                      v-model='editedTask'
+                    />
+                  </label>
+                  <button
+                    @click.prevent='finishTaskEdit(task.title, task.id)'
+                    class='edit-button'>
+                  </button>
+                </form>
+              </td>
+              <td>
+                <button
+                  @click.prevent='eliminateTask(task.id)'
+                  class='delete-button'>
+                </button>
+              </td>
+              <td>
+                <button
+                  @click.prevent='completeTask(task.is_complete, task.id);
+                  (isCompleted = !isCompleted)'
+                  class='check-button'>
+                </button>
+              </td>
+            </div>
           </tr>
         </tbody>
       </table>
@@ -222,7 +226,7 @@ button:hover {
 
 .my-tasks-list {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   gap: 20px;
 }
 </style>
